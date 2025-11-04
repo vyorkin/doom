@@ -77,18 +77,6 @@
   :config
   (global-evil-matchit-mode 1))
 
-(use-package! treemacs
-  :config
-  (setq treemacs-no-png-images t)
-  ;; The default width and height of the icons is 22 pixels.
-  (treemacs-resize-icons 14)
-  (treemacs-follow-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (map!
-   :leader
-   :desc "Treemacs toggle" "e" #'+treemacs/toggle
-   :desc "Treemacs locate" "r" #'treemacs-select-window))
-
 ;; Zoom a window to display as a single window temporarily.
 (use-package! zoom-window
   :custom

@@ -35,4 +35,6 @@
  :desc "Split window right" "|" #'split-window-right
  :desc "Split window below" "-" #'split-window-below 
  :desc "Eval expression" "Ee" #'eval-expression
- :desc "List processes" "P" #'list-processes)
+ :desc "List processes" "P" #'list-processes
+ :desc "Treemacs toggle" "e" #'+treemacs/toggle
+ :desc "Treemacs locate" "r" #'treemacs-select-window)

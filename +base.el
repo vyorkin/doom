@@ -75,7 +75,6 @@
  recentf-filename-handlers '(file-truename abbreviate-file-name))
 
 (use-package! prog-mode
-  :defer t
   :commands
   (global-prettify-symbols-mode)
   :init
@@ -85,7 +84,6 @@
   (global-prettify-symbols-mode t))
 
 (use-package! calendar
-  :defer t
   :ensure nil
   :custom (calendar-week-start-day 1))
 
@@ -147,7 +145,6 @@
 
 ;; Wrap lines according to fill-column in visual-line-mode.
 (use-package! visual-fill-column
-  :defer t
   :custom
   (visual-fill-column-center-text t)
   :hook

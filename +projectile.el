@@ -3,7 +3,7 @@
 (setq
  projectile-project-search-path
  '("~/projects/learn/coq/"
-   ;; "~/projects/learn/lean4/"
+   "~/projects/learn/lean4/"
    "~/projects/learn/go/"
    "~/projects/learn/rust/"
    "~/projects/learn/zig/"
