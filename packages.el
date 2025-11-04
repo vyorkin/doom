@@ -48,3 +48,34 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
+
+(package! almost-mono-themes
+  :recipe (:host github :repo "cryon/almost-mono-themes"))
+
+(package! base16-theme)
+
+;; TODO: Doesn't work. Unmaintaned? Remove
+;; (package! lean4-mode
+;;   :recipe (:host github
+;;            :repo "leanprover-community/lean4-mode"
+;;            :files ("*.el" "data")))
+
+(package! nael-mode
+  :recipe (:host codeberg
+           :repo "mekeor/nael"
+           :files ("nael/*.el" "nael-lsp/*.el" "nael-markdown/*.el")))
+
+;; Show free bindings in current buffer.
+;; To use, call the command M-x free-keys.
+(package! free-keys)
+
+(package! tab-bar-notch)
+(package! rainbow-delimiters)
+(package! rainbow-identifiers)
+(package! idle-highlight-mode)
+(package! evil-matchit)
+(package! zoom-window)
+(package! expand-region)
+(package! git-messenger)
+(package! git-modes)
+(package! tldr)
