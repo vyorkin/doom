@@ -27,11 +27,11 @@
       (set-face-attribute face nil :slant 'normal))))
 
 (defun my/apply-custom-faces ()
+  (interactive)
   (custom-set-faces!
     `(vertical-border
       :background ,(face-background 'default)
-      ;; TODO: Not perfect, I want `,(face-foreground 'default)` here as well
-      :foreground "#000000")
+      :foreground ,(face-background 'default))
     `(fringe
       :foreground ,(face-foreground 'default)
       :background ,(face-background 'default))))

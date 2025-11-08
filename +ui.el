@@ -29,9 +29,10 @@
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
-(use-package! rainbow-identifiers
-  :hook
-  (prog-mode . rainbow-identifiers-mode))
+;; Turn on if you like clown fiesta
+;; (use-package! rainbow-identifiers
+;;   :hook
+;;   (prog-mode . rainbow-identifiers-mode))
 
 ;; Basically its the same as highlight-thing but seems to be smarter and less distracting.
 (use-package! idle-highlight-mode

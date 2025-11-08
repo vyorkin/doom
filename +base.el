@@ -142,10 +142,3 @@
 
 ;; Treat an Emacs region much like a typical text selection outside of Emacs.
 (setq delete-selection-mode t)
-
-;; Wrap lines according to fill-column in visual-line-mode.
-(use-package! visual-fill-column
-  :custom
-  (visual-fill-column-center-text t)
-  :hook
-  (visual-line-mode . visual-fill-column-mode))

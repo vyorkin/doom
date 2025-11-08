@@ -42,6 +42,7 @@
 (load! "+org")
 (load! "+git")
 (load! "+ui")
+(load! "+other")
 
 ;; Theorem proving.
 (load! "+coq")

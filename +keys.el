@@ -29,12 +29,17 @@
    :n "C-j" #'evil-window-down
    :n "C-k" #'evil-window-up))
 
+(after! treemacs-evil
+  (define-key evil-treemacs-state-map (kbd "C-h") #'evil-window-left)
+  (define-key evil-treemacs-state-map (kbd "C-j") #'evil-window-down)
+  (define-key evil-treemacs-state-map (kbd "C-k") #'evil-window-up)
+  (define-key evil-treemacs-state-map (kbd "C-l") #'evil-window-right)
+  (define-key evil-treemacs-state-map (kbd "e")   #'treemacs-extra-wide-toggle))
+
 ;; Leader-prefixed
 (map!
  :leader
  :desc "Split window right" "|" #'split-window-right
  :desc "Split window below" "-" #'split-window-below 
  :desc "Eval expression" "Ee" #'eval-expression
- :desc "List processes" "P" #'list-processes
- :desc "Treemacs toggle" "e" #'+treemacs/toggle
- :desc "Treemacs locate" "r" #'treemacs-select-window)
+ :desc "List processes" "P" #'list-processes)
