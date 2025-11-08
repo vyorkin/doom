@@ -34,7 +34,9 @@
   (define-key evil-treemacs-state-map (kbd "C-j") #'evil-window-down)
   (define-key evil-treemacs-state-map (kbd "C-k") #'evil-window-up)
   (define-key evil-treemacs-state-map (kbd "C-l") #'evil-window-right)
-  (define-key evil-treemacs-state-map (kbd "e")   #'treemacs-extra-wide-toggle))
+  (define-key evil-treemacs-state-map (kbd "e") #'treemacs-extra-wide-toggle)
+  (define-key evil-treemacs-state-map (kbd "S") #'treemacs-visit-node-vertical-split)
+  (define-key evil-treemacs-state-map (kbd "s") #'treemacs-visit-node-horizontal-split))
 
 ;; Leader-prefixed
 (map!
