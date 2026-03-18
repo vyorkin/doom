@@ -141,4 +141,4 @@
  (lambda () (setq line-spacing 0)))
 
 ;; Treat an Emacs region much like a typical text selection outside of Emacs.
-(setq delete-selection-mode t)
+(delete-selection-mode t)

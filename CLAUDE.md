@@ -24,12 +24,11 @@ The config is split across files loaded by `config.el` via Doom's `load!` macro:
 | `config.el` | Entry point that loads all `+*.el` files |
 | `+base.el` | Fonts (JuliaMono 18), frame settings, scrolling, fringes, margins, tab-bar-notch for macOS notch |
 | `+themes.el` | Theme config (base16-black-metal), italics disabled globally, custom face hooks |
-| `+keys.el` | Evil keybindings — C-hjkl for window navigation, `;`/`:` swapped, leader bindings |
-| `+ui.el` | UI packages: rainbow-delimiters, idle-highlight, hl-line, evil-mc, evil-matchit, zoom-window, expand-region |
+| `+keys.el` | Evil keybindings — C-hjkl for window navigation, `;`/`:` swapped, leader bindings, consult |
+| `+ui.el` | UI packages: rainbow-delimiters, idle-highlight, hl-line, evil-mc, evil-matchit, zoom-window, expand-region, treemacs |
 | `+projectile.el` | Projectile search paths and settings |
 | `+org.el` | Org-mode configuration |
 | `+git.el` | Git-related config (magit, git-messenger) |
-| `+other.el` | Treemacs and consult settings |
 | `+coq.el` | Coq theorem prover config |
 | `+lean.el` | Lean 4 theorem prover config (uses nael-mode from Codeberg) |
 | `custom.el` | Emacs custom-set-variables (auto-generated) |

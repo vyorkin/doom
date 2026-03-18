@@ -1,15 +1,8 @@
-;;; lean.el -*- lexical-binding: t; -*-
+;;; +lean.el -*- lexical-binding: t; -*-
 
-;; Lazy loading.
-(require 'nael-autoloads)
-(require 'nael-lsp-autoloads)
-
-;; Enables abbreviations as well as LSP automatically.
-(add-hook 'nael-mode-hook #'abbrev-mode)
-(add-hook 'nael-mode-hook #'eglot-ensure)
-
-(defun my/nael/setup ()
-  (interactive)
+(use-package! nael-mode
+  :mode "\\.lean\\'"
+  :hook ((nael-mode . abbrev-mode)
+         (nael-mode . eglot-ensure))
+  :config
   (setq eldoc-echo-area-use-multiline-p nil))
-
-(add-hook 'nael-mode-hook #'my/nael/setup)

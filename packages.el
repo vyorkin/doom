@@ -54,12 +54,6 @@
 
 (package! base16-theme)
 
-;; TODO: Doesn't work. Unmaintaned?
-;; (package! lean4-mode
-;;   :recipe (:host github
-;;            :repo "leanprover-community/lean4-mode"
-;;            :files ("*.el" "data")))
-
 (package! nael-mode
   :recipe (:host codeberg
            :repo "mekeor/nael"

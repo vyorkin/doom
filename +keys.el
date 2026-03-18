@@ -45,3 +45,10 @@
  :desc "Split window below" "-" #'split-window-below 
  :desc "Eval expression" "Ee" #'eval-expression
  :desc "List processes" "P" #'list-processes)
+
+(use-package! consult
+  :config
+  (map!
+   :leader
+   :desc "Jump to bookmark" "j" #'consult-bookmark
+   :desc "Find in org agenda" "k" #'consult-org-agenda))

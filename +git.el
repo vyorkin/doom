@@ -2,6 +2,8 @@
 
 ;; Popup commit message for current line.
 (use-package! git-messenger
+  :custom
+  (git-messenger:use-magit-popup t)
   :config
   (map!
     :leader
@@ -12,7 +14,6 @@
   :custom
   (magit-refs-show-commit-count 'all)
   (magit-save-repository-buffers 'dontask)
-  (git-messenger:use-magit-popup t)
   :config
   ;; Unset pager as it is not supported properly inside emacs
   (setenv "GIT_PAGER" "")
