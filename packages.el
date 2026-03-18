@@ -54,7 +54,7 @@
 
 (package! base16-theme)
 
-;; TODO: Doesn't work. Unmaintaned? Remove
+;; TODO: Doesn't work. Unmaintaned?
 ;; (package! lean4-mode
 ;;   :recipe (:host github
 ;;            :repo "leanprover-community/lean4-mode"

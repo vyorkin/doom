@@ -8,7 +8,13 @@
 
    ;; Just in case I'll have problems with caching in the future -
    ;; try uncommenting this line below to disable the persitent cache.
-   ;; projectile-enable-caching t
+   projectile-enable-caching nil
+
+   ;; I have problems with cache. In case I delete existing folder that is
+   ;; already cached Emacs just stops loading with error about missing
+   ;; directory.
+   ;; 
+   ;; UPDATE-1: Most likely this is not related to projectile and projectile-enable-caching var.
 
    projectile-file-exists-remote-cache-expire (* 10 60)
    projectile-file-exists-local-cache-expire (* 5 60)

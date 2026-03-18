@@ -30,3 +30,10 @@
    :leader
    :desc "Treemacs toggle" "e" #'+treemacs/toggle
    :desc "Treemacs locate" "r" #'treemacs-select-window))
+
+(use-package consult
+  :config
+  (map!
+   :leader
+   :desc "Jump to bookmark" "j" #'consult-bookmark
+   :desc "Find in org agenda" "k" #'consult-org-agenda))
