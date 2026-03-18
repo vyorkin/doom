@@ -43,6 +43,8 @@
 (load! "+git")
 (load! "+ui")
 
+(load! "+rust")
+
 ;; Theorem proving.
 (load! "+coq")
 (load! "+lean")

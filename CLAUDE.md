@@ -29,6 +29,7 @@ The config is split across files loaded by `config.el` via Doom's `load!` macro:
 | `+projectile.el` | Projectile search paths and settings |
 | `+org.el` | Org-mode configuration |
 | `+git.el` | Git-related config (magit, git-messenger) |
+| `+rust.el` | Rust config — rust-analyzer eglot settings (clippy, proc macros, all features, inlay hints), debug keybindings (dape) |
 | `+coq.el` | Coq theorem prover config |
 | `+lean.el` | Lean 4 theorem prover config (uses nael-mode from Codeberg) |
 | `custom.el` | Emacs custom-set-variables (auto-generated) |
