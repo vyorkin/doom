@@ -104,7 +104,7 @@
        (lookup
         +devdocs
         +docsets)          ; navigate your code and its documentation
-       (lsp +eglot)        ; M-x vscode
+       (lsp +eglot +booster) ; M-x vscode
        (magit +forge)      ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
