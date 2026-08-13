@@ -2,9 +2,10 @@
 
 ;; Popup commit message for current line.
 (use-package! git-messenger
+  :defer t
   :custom
   (git-messenger:use-magit-popup t)
-  :config
+  :init
   (map!
     :leader
     :desc "Popup commit message for current line" "gm" #'git-messenger:popup-message))

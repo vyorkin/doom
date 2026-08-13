@@ -7,6 +7,13 @@
  user-full-name "Vasiliy Yorkin"
  user-mail-address "vasiliy.yorkin@gmail.com")
 
+;; The *scratch* buffer defaults to `lisp-interaction-mode', which triggers
+;; `lispy-mode' on startup, which eagerly requires `zoutline', which
+;; unconditionally requires `org' -- adding ~0.8s to startup for a buffer
+;; nobody edits before the dashboard covers it. `fundamental-mode' skips
+;; that chain; real .el files still activate lispy-mode normally.
+(setq initial-major-mode 'fundamental-mode)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use

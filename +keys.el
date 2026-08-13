@@ -47,7 +47,8 @@
  :desc "List processes" "P" #'list-processes)
 
 (use-package! consult
-  :config
+  :defer t
+  :init
   (map!
    :leader
    :desc "Jump to bookmark" "j" #'consult-bookmark

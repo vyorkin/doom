@@ -1,6 +1,7 @@
 ;;; +projectile.el -*- lexical-binding: t; -*-
 
 (use-package! projectile
+  :defer t
   :init
   (setq
    projectile-sort-order 'recently-active
@@ -33,7 +34,6 @@
      "~/projects/personal/"
      "~/projects/opensource/"
      "~/projects/work/mev/"))
-  :config
   (map!
    :leader
    :desc "Run async shell cmd in project's root" "!" #'projectile-run-async-shell-command-in-root

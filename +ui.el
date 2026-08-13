@@ -62,16 +62,19 @@
     :desc "Toggle line highlight" "tL" #'global-hl-line-mode))
 
 (use-package! evil-mc
-  :config
+  :defer t
+  :init
   (map!
    ;; Making multiple cursors should be easier.
    :nv "C-n" #'evil-mc-make-and-goto-next-match))
 
 ;; Press "%" to jump between matched tags in Emacs. For example, in HTML “<div>”
 ;; and “</div>” are a pair of tags. Many modern languages are supported.
+;; Deferred to doom-first-buffer-hook so it activates right after startup
+;; instead of blocking it, since it's a global mode with no command of its
+;; own to hang an autoload off of.
 (use-package! evil-matchit
-  :config
-  (global-evil-matchit-mode 1))
+  :hook (doom-first-buffer . global-evil-matchit-mode))
 
 ;; Zoom a window to display as a single window temporarily.
 (use-package! zoom-window
@@ -90,9 +93,16 @@
  :v "v" #'er/expand-region)
 
 (use-package! treemacs
+  :defer t
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  ;; Keybindings live in :init (always runs) rather than :config (deferred
+  ;; until treemacs loads) -- otherwise nothing would ever trigger the load.
+  (map!
+   :leader
+   :desc "Treemacs toggle" "e" #'+treemacs/toggle
+   :desc "Treemacs locate" "r" #'treemacs-select-window)
   :config
   (progn
     (setq
@@ -113,9 +123,4 @@
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple))))
-
-  (map!
-   :leader
-   :desc "Treemacs toggle" "e" #'+treemacs/toggle
-   :desc "Treemacs locate" "r" #'treemacs-select-window))
+       (treemacs-git-mode 'simple)))))
