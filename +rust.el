@@ -25,6 +25,20 @@
 (after! rustic
   (setq rustic-cargo-test-runner 'nextest)
 
+  ;; rust-analyzer returns definitions inside third-party crate sources under
+  ;; ~/.cargo/{registry,git}. Eglot treats each such directory as its own
+  ;; project and boots a separate, expensive rust-analyzer for it (10s+ and
+  ;; ~1.5GB per crate, because it re-runs cargo check/clippy with all features
+  ;; from scratch). Skip LSP for those read-only sources; they open without a
+  ;; server, and `M-x eglot' can still be run manually when full navigation
+  ;; inside a dependency is needed.
+  (defadvice! +rust--skip-lsp-for-dependency-sources-a (fn &rest args)
+    :around #'rustic-setup-lsp
+    (unless (and buffer-file-name
+                 (string-match-p "/\\.cargo/\\(registry\\|git\\)/\\|/\\.rustup/"
+                                 (expand-file-name buffer-file-name)))
+      (apply fn args)))
+
   (map! :map rustic-mode-map
         :localleader
         "i" #'eglot-inlay-hints-mode

@@ -12,10 +12,10 @@
   ;;  '(proof-mouse-highlight-face  ((t (:background "#555" :foreground "#fff")))))
   )
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'base16-black-metal)
+;; The Emacs theme follows the Omarchy desktop theme (see `+omarchy.el').
+;; `doom-theme' is left nil so Doom never imposes a theme of its own; the
+;; Omarchy integration applies the active desktop palette after init.
+(setq doom-theme nil)
 
 ;; Disable italics.
 (setq doom-themes-enable-italic nil)

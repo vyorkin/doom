@@ -7,12 +7,26 @@
  user-full-name "Vasiliy Yorkin"
  user-mail-address "vasiliy.yorkin@gmail.com")
 
+;; Never prompt to install a missing tree-sitter grammar. Such a prompt blocks
+;; the whole daemon until it is answered, and a daemon session may have no
+;; visible frame to answer it in. The grammars used by enabled modules are
+;; pre-installed; anything else quietly falls back to its non-tree-sitter major
+;; mode. Install grammars explicitly with `M-x treesit-install-language-grammar'.
+(setq treesit-auto-install-grammar nil)
+
 ;; The *scratch* buffer defaults to `lisp-interaction-mode', which triggers
 ;; `lispy-mode' on startup, which eagerly requires `zoutline', which
 ;; unconditionally requires `org' -- adding ~0.8s to startup for a buffer
 ;; nobody edits before the dashboard covers it. `fundamental-mode' skips
 ;; that chain; real .el files still activate lispy-mode normally.
 (setq initial-major-mode 'fundamental-mode)
+
+;; Daemon sessions default `doom-incremental-first-idle-timer' to 0, which makes
+;; `doom-load-packages-incrementally-h' `require' every deferred package
+;; synchronously at startup (~2.4s here: org, org-agenda, magit, ...). Force the
+;; interactive idle-based path so the daemon is ready fast and the packages fill
+;; in right after, off the startup critical path.
+(setq doom-incremental-first-idle-timer 2.0)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -34,26 +48,15 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-;; Make sure we don't use native fullscreen.
-(setq ns-use-native-fullscreen nil)
+;; Open frames as normal, non-fullscreen windows.
+(setq initial-frame-alist (delq (assq 'fullscreen initial-frame-alist)
+                                initial-frame-alist))
+(setq default-frame-alist (delq (assq 'fullscreen default-frame-alist)
+                                default-frame-alist))
 
-;; Start the initial frame in fullscreen mode
-(add-to-list 'initial-frame-alist '(fullscreen . fullscreen))
-
-;; To use tab-bar-notch we must be using tab-bar-mode,
-;; with the tab-bar visible at the top of the frame above all buffers.
-(setq
- tab-bar-format
- '(tab-bar-format-history
-   tab-bar-format-tabs
-   tab-bar-separator
-   tab-bar-format-add-tab
-   tab-bar-notch-spacer))
-
-(tab-bar-mode)
-
-;; Helps deal with the tab bar notch on new macbooks.
-(use-package! tab-bar-notch)
+;; No tab bar: it only ever showed the current buffer as a tab (with its
+;; close/new buttons) and wasted a strip at the top of every frame. Buffer
+;; switching is done with `consult-buffer' and Doom's workspaces.
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

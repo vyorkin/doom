@@ -37,6 +37,7 @@
 
 (load! "+base")
 (load! "+themes")
+(load! "+omarchy")
 (load! "+keys")
 (load! "+projectile")
 (load! "+org")

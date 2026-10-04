@@ -1,5 +1,86 @@
 ;;; +ui.el -*- lexical-binding: t; -*-
 
+;; Frame background transparency.
+;;
+;; `alpha-background' is a pgtk frame parameter (Emacs 29+) that makes only the
+;; frame background translucent; text, cursor and fringe stay fully opaque. It
+;; therefore reads better than a compositor opacity rule, which fades the text
+;; too. 100 = fully opaque, 0 = fully transparent background.
+;;
+;; Change it live with M-x my/set-frame-transparency, or edit the default below
+;; and restart. The value is applied to every graphical frame and to frames
+;; created later (daemon clients included).
+(defvar my/frame-transparency 100
+  "Background opacity of graphical frames, 0-100 (100 = opaque).")
+
+(defun my/set-frame-transparency (&optional value)
+  "Set the frame background transparency to VALUE (0-100).
+Interactively, prompt for VALUE, defaulting to `my/frame-transparency'."
+  (interactive
+   (list (read-number "Background transparency (0-100): " my/frame-transparency)))
+  (setq my/frame-transparency value)
+  ;; Store it on `default-frame-alist' too, so frames created later inherit it.
+  (setf (alist-get 'alpha-background default-frame-alist) value)
+  (dolist (frame (frame-list))
+    (when (display-graphic-p frame)
+      (set-frame-parameter frame 'alpha-background value)))
+  (message "Frame transparency: %d%%" value))
+
+(defun my/adjust-frame-transparency (delta)
+  "Change the frame background transparency by DELTA steps of 5."
+  (my/set-frame-transparency
+   (max 0 (min 100 (+ my/frame-transparency (* delta 5))))))
+
+(defun my/frame-transparency-down ()
+  "Make graphical frames 5% more transparent."
+  (interactive)
+  (my/adjust-frame-transparency -1))
+
+(defun my/frame-transparency-up ()
+  "Make graphical frames 5% less transparent."
+  (interactive)
+  (my/adjust-frame-transparency +1))
+
+(map!
+ :leader
+ :desc "Frame: more transparent" "t[" #'my/frame-transparency-down
+ :desc "Frame: less transparent" "t]" #'my/frame-transparency-up)
+
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (when (display-graphic-p frame)
+              (set-frame-parameter frame 'alpha-background my/frame-transparency))))
+
+;; Apply now for frames that already exist (the initial frame, or the daemon's
+;; frames); `default-frame-alist' covers the ones created later.
+(my/set-frame-transparency my/frame-transparency)
+
+;; nerd-icons (used by Doom's modeline, corfu, treemacs, ...) defaults to the
+;; "Symbols Nerd Font Mono" family, which is not installed on this system, so
+;; every icon rendered as a missing-glyph box showing its codepoint (e.g.
+;; U+F0C13 drawn as "0F0C13" in the mode line). The installed JetBrainsMono
+;; Nerd Font carries the same glyph set, so point nerd-icons at it and register
+;; it, including for frames created later in the daemon.
+(setq nerd-icons-font-family "JetBrainsMono Nerd Font")
+(after! nerd-icons
+  (when (display-graphic-p)
+    (nerd-icons-set-font))
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (when (display-graphic-p frame)
+                (with-selected-frame frame
+                  (nerd-icons-set-font))))))
+
+;; Doom's workspaces module pops its workspace tabline (e.g. " [1] main ")
+;; into the echo area on every new frame, so it lingers as a stray bar at the
+;; bottom of a freshly opened frame. Suppress that startup call only;
+;; switching workspaces still shows the tabline.
+(defun +ui--suppress-frame-workspace-tabline (orig &rest args)
+  (cl-letf (((symbol-function '+workspace/display) #'ignore))
+    (apply orig args)))
+(advice-add '+workspaces-associate-frame-fn
+            :around #'+ui--suppress-frame-workspace-tabline)
+
 ;; This is a "rainbow parentheses"-like mode which highlights
 ;; delimiters such as parentheses, brackets or braces according to their depth.
 ;; Each successive level is highlighted in a different color. This makes it easy

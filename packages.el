@@ -57,7 +57,11 @@
 (package! nael-mode
   :recipe (:host codeberg
            :repo "mekeor/nael"
-           :files ("nael/*.el" "nael-lsp/*.el" "nael-markdown/*.el")))
+           ;; Only the core nael/ dir: it ships the eglot integration this
+           ;; config uses (nael-eglot.el). nael-lsp/ is for lsp-mode and its
+           ;; autoloads reference `nael-mode-map' before it's defined, which
+           ;; breaks `doom sync'.
+           :files ("nael/*.el")))
 
 ;; Show free bindings in current buffer.
 ;; To use, call the command M-x free-keys.
