@@ -42,13 +42,33 @@
 ;; read as small and pale however the size was set, while Cascadia's larger
 ;; x-height and rounder shapes are easier at a glance on a light background.
 ;;
-;; Size 18 at desktop scale 1.0 gives an 11x22 cell, the same row pitch the
-;; terminal has. Scale 1.25 was abandoned: GDK3 cannot express a fractional
-;; scale, so every glyph went through a 1x->1.25 resample — soft hinting read as
-;; "blurry", full hinting as "pixelated", and no fontconfig setting made Emacs
-;; match kitty. If the scale or the terminal's font size changes, re-measure and
-;; keep these row pitches equal.
-(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 18))
+;; The size follows the display scale, because the two machines differ: zaraki
+;; is a 1x 3440x1440 panel and takes 18pt (11x22 cell), bankai is a 2x retina
+;; panel and needs 13pt for the same physical row pitch. `frame-scale-factor'
+;; only answers for a windowed frame, so the font is re-applied when a frame is
+;; created; the value below is the 1x default for the daemon's own frame.
+;;
+;; Scale 1.25 is deliberately not used on either machine: GDK3 cannot express a
+;; fractional scale, so every glyph went through a 1x->1.25 resample — soft
+;; hinting read as "blurry", full hinting as "pixelated", and no fontconfig
+;; setting made Emacs match kitty.
+(defun my/doom-font ()
+  "Font for the current display scale: 18pt at 1x, 13pt at 2x."
+  (font-spec :family "CaskaydiaCove Nerd Font"
+             :size (if (and (fboundp 'frame-scale-factor)
+                            (>= (or (frame-scale-factor) 1) 1.5))
+                       13
+                     18)))
+
+(setq doom-font (my/doom-font))
+
+;; Appended, not prepended: Doom installs its own font handler on this hook and
+;; must run first, otherwise doom-font would overwrite the scaled size.
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (with-selected-frame frame
+              (set-frame-font (my/doom-font) nil t)))
+          :append)
 ;; (setq doom-font (font-spec :family "Terminess Nerd Font Mono" :size 18))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
