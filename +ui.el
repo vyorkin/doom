@@ -136,7 +136,10 @@ Interactively, prompt for VALUE, defaulting to `my/frame-transparency'."
   (hl-line-sticky-flag nil)
   (global-hl-line-sticky-flag nil)
   :config
-  (set-face-background 'hl-line "#151515")
+  ;; No hard-coded shade here. The palette comes from the Omarchy desktop theme
+  ;; (see `+omarchy.el'), so a fixed #151515 turned the current line into dark
+  ;; text on dark background once the light `snow' theme was active. The face is
+  ;; left to the theme, which sets it from `lighter_background'.
   (global-hl-line-mode)
   (map!
     :leader

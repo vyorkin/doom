@@ -37,10 +37,18 @@
 ;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
+;; CaskaydiaCove Nerd Font — Cascadia Code with Nerd icons. It replaced
+;; JetBrainsMono because at this panel distance the thin, tight JetBrains drawing
+;; read as small and pale however the size was set, while Cascadia's larger
+;; x-height and rounder shapes are easier at a glance on a light background.
 ;;
-(setq doom-font (font-spec :family "JuliaMono" :size 18))
+;; Size 18 at desktop scale 1.0 gives an 11x22 cell, the same row pitch the
+;; terminal has. Scale 1.25 was abandoned: GDK3 cannot express a fractional
+;; scale, so every glyph went through a 1x->1.25 resample — soft hinting read as
+;; "blurry", full hinting as "pixelated", and no fontconfig setting made Emacs
+;; match kitty. If the scale or the terminal's font size changes, re-measure and
+;; keep these row pitches equal.
+(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 18))
 ;; (setq doom-font (font-spec :family "Terminess Nerd Font Mono" :size 18))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
