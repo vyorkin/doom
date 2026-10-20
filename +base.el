@@ -62,13 +62,15 @@
 
 (setq doom-font (my/doom-font))
 
-;; Appended, not prepended: Doom installs its own font handler on this hook and
-;; must run first, otherwise doom-font would overwrite the scaled size.
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (with-selected-frame frame
-              (set-frame-font (my/doom-font) nil t)))
-          :append)
+;; Doom applies `doom-font' itself from `doom-init-fonts-h', which runs after
+;; any frame handler of ours and would put the 1x size back. Advising it lets
+;; Doom keep ownership of when fonts are applied while we decide the size.
+(defun my/doom-init-fonts-a (orig &optional frame)
+  (let ((doom-font (my/doom-font)))
+    (funcall orig frame)))
+
+(when (fboundp 'doom-init-fonts-h)
+  (advice-add 'doom-init-fonts-h :around #'my/doom-init-fonts-a))
 ;; (setq doom-font (font-spec :family "Terminess Nerd Font Mono" :size 18))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
